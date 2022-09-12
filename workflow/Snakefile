@@ -17,3 +17,30 @@ module snakemake_workflow_template:
 
 # use all rules from https://github.com/snakemake-workflows/snakemake-workflow-template
 use rule * from snakemake_workflow_template
+
+
+import pandas as pd
+
+configfile: "config.yaml"
+
+# get input     
+def get_fqs(wildcards):
+    fqs = sampleTable.loc[wildcards.sample, 'fqs']
+    return fqs.split(',')
+
+# load sample table
+def get_samples(sample_table=os.get_cwd() + "/samples.tsv", seq_type):
+    sample_dt = pd.read_csv(sample_table, index_col=0, sep="\t")
+    sample_dt = sample_dt.loc[sample_dt['type'] == seq_type]
+    return sample_dt.index.values
+
+rule all:
+    input:
+        "matrix_illumina.tsv",
+        "matrix_nanopore.tsv",
+
+rule illunima:
+    input: "matrix_illumina.tsv"
+
+rule nanopore:
+    input: "matrix_nanopore.tsv"

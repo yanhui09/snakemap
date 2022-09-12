@@ -1,0 +1,1 @@
+samples_nano = get_samples(seq_type='nanopore')
