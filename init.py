@@ -38,7 +38,7 @@ def parse_arguments():
         )
     parser.add_argument("-i", "--illumina", help='path to illumina fastq files')
     parser.add_argument("-n", "--nanopore", help='path to nanopore fastq files')
-    parser.add_argument("-o", "--out", help='path to working directory', default=os.getcwd())
+    parser.add_argument("-w", "--workdir", help='path to working directory', default=os.getcwd())
 
     args = parser.parse_args()
     return args
@@ -59,7 +59,7 @@ def main():
         sample_dt_nano = get_samples(args.nanopore)
         sample_dt_nano["type"] = "nanopore"
         sample_dt = pd.concat([sample_dt_illu, sample_dt_nano])
-    sample_dt.to_csv(args.out + "/samples.tsv", sep="\t")
+    sample_dt.to_csv(args.workdir + "/samples.tsv", sep="\t")
 
 if __name__ == "__main__":
     main()
