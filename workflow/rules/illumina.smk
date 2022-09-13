@@ -15,7 +15,8 @@ rule rename_ref:
                     out.write(line)
 
 rule bwt2_build:
-    input: rules.rename_ref.output
+    input: 
+        ref = rules.rename_ref.output,
     output:
         multiext("illumina/ref", ".1.bt2", ".2.bt2", ".3.bt2", ".4.bt2", ".rev.1.bt2", ".rev.2.bt2"),
     log: "logs/illumina/bwt2build.log"
@@ -26,8 +27,8 @@ rule bwt2_build:
 
 rule bwt2_map:
     input:
-        index=rules.bwt2_build.output,
-        fqs = lambda wc: get_fqs(wc),
+        idx=rules.bwt2_build.output,
+        sample = lambda wc: get_fqs(wc),
     output: temp("illumina/{sample}.bam")
     log: "logs/illumina/bwt2map/{sample}.log"
     params:
