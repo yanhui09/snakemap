@@ -1,38 +1,23 @@
-from snakemake.utils import min_version
-
-
-min_version("6.10.0")
-
+import pandas as pd
 
 configfile: "config/config.yaml"
 
+# load sample table
+def load_sample_table(sample_table):
+    sampleTable = pd.read_csv(sample_table, index_col=0, sep="\t")
+    return sampleTable
 
-# declare https://github.com/snakemake-workflows/snakemake-workflow-template as a module
-module snakemake_workflow_template:
-    snakefile: 
-        github("snakemake-workflows/snakemake-workflow-template", path="workflow/Snakefile", tag="null")
-    config:
-        config
-
-
-# use all rules from https://github.com/snakemake-workflows/snakemake-workflow-template
-use rule * from snakemake_workflow_template
-
-
-import pandas as pd
-
-configfile: "config.yaml"
+sample_dt = load_sample_table(os.getcwd() + '/samples.tsv')
 
 # get input     
 def get_fqs(wildcards):
-    fqs = sampleTable.loc[wildcards.sample, 'fqs']
+    fqs = sample_dt.loc[wildcards.sample, 'fqs']
     return fqs.split(',')
 
 # load sample table
-def get_samples(sample_table=os.get_cwd() + "/samples.tsv", seq_type):
-    sample_dt = pd.read_csv(sample_table, index_col=0, sep="\t")
-    sample_dt = sample_dt.loc[sample_dt['type'] == seq_type]
-    return sample_dt.index.values
+def get_samples(seq_type):
+    sample_dt_f = sample_dt.loc[sample_dt['type'] == seq_type]
+    return sample_dt_f.index.values
 
 rule all:
     input:
@@ -44,3 +29,6 @@ rule illunima:
 
 rule nanopore:
     input: "matrix_nanopore.tsv"
+
+include: "rules/illumina.smk"
+include: "rules/nanopore.smk"

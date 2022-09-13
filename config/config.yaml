@@ -1,5 +1,6 @@
 ref:
-  illumina:
-  nanopore:
+  illumina: /mnt/md0/Nanocompare/refs/mmseqs2_097_illumina.fasta
+  nanopore: /mnt/md0/Nanocompare/refs/mmseqs2_097_nanopore.fasta
 
-THREADS: 4
+threads:
+  normal: 4
