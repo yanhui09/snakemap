@@ -1,7 +1,7 @@
 # Snakemake workflow: `snakemap`
 
 [![Snakemake](https://img.shields.io/badge/snakemake-brightgreen.svg)](https://snakemake.github.io)
-[![GitHub actions status](https://github.com/yanhui09/snakemap/actions/workflows/main.yml/badge.svg?branch=master)](https://github.com/yanhui09/snakemap/actions?query=branch%3Amaster+workflow%3ATests)
+[![GitHub actions status](https://github.com/yanhui09/snakemap/workflows/Tests/badge.svg?branch=master)](https://github.com/yanhui09/snakemap/actions?query=branch%3Amaster+workflow%3ATests)
 
 
 A Snakemake workflow for `snakemap`
