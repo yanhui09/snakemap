@@ -17,7 +17,7 @@ def get_fqs(wildcards):
 # load sample table
 def get_samples(seq_type):
     sample_dt_f = sample_dt.loc[sample_dt['type'] == seq_type]
-    return sample_dt_f.index.values
+    return sorted(sample_dt_f.index.values)
 
 rule all:
     input:
