@@ -33,7 +33,7 @@ rule minimap2:
         x = "map-ont",
     conda: "../envs/minimap2.yaml"
     log: "logs/nanopore/minimap2/{sample}.log"
-    threads: config["threads"]["normal"]
+    threads: config["threads"]["large"]
     shell:
         """
         minimap2 -t {threads} -ax {params.x} --secondary=no {input.mmi} {input.fq} 2> {log} | \

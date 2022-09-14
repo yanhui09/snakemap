@@ -34,7 +34,7 @@ rule bwt2_map:
     params:
         index=os.getcwd() + "/illumina/ref",  # prefix of reference genome index (built with bowtie2-build)
         extra=""  # optional parameters
-    threads: config["threads"]["normal"]  # Use at least two threads
+    threads: config["threads"]["large"]  # Use at least two threads
     wrapper: "v1.12.2/bio/bowtie2/align"
 
 rule samtools_sort:

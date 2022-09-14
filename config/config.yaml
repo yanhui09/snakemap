@@ -4,3 +4,4 @@ ref:
 
 threads:
   normal: 4
+  large: 20
