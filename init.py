@@ -1,6 +1,5 @@
 import os
 from collections import defaultdict
-from random import sample
 import pandas as pd
 import argparse
 
@@ -29,6 +28,12 @@ def get_samples(path):
                 add_sample(samples, sample_id, "fqs", fq_path)
     samples_dt = pd.DataFrame(samples).T
     return samples_dt
+
+def get_configfile(file):
+    workflow_dir = os.path.dirname(file)
+    config_path = os.path.join(workflow_dir, "config/config.yaml")
+    return config_path
+    
 
 def parse_arguments():
     """Read arguments from the console"""
@@ -60,6 +65,11 @@ def main():
         sample_dt_nano["type"] = "nanopore"
         sample_dt = pd.concat([sample_dt_illu, sample_dt_nano])
     sample_dt.to_csv(args.workdir + "/samples.tsv", sep="\t")
+    configfile = get_configfile(__file__)
+    # write config to workdir
+    with open(configfile, "r") as fi:
+        with open (args.workdir + "/config.yaml", "w") as fo:
+            fo.write(fi.read())
 
 if __name__ == "__main__":
     main()
