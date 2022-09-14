@@ -27,7 +27,7 @@ def get_samples(path):
                     sample_id = sample_id[:-3]
                 add_sample(samples, sample_id, "fqs", fq_path)
     samples_dt = pd.DataFrame(samples).T
-    return samples_dt
+    return samples_dt.sort_index()
 
 def get_configfile(file):
     workflow_dir = os.path.dirname(file)
